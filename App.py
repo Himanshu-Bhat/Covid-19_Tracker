@@ -58,42 +58,39 @@ st.header('Global Covid Tracker')
 
 col1, col2, col3, col4, col5 = st.columns(5, gap='small')
 with col1:
-    temp = format(int(global_covid_data['Cases - cumulative total']), ',d')
-    string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Cases (Cumulative Total) :             
-                {temp}</p1>"""
-    st.markdown(string, unsafe_allow_html=True)
-with col2:
     temp = format(int(vaccination_df['TOTAL_VACCINATIONS'].sum()), ',d')
     string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Total Vaccination :                   
                 {temp}</p1>"""
     st.markdown(string, unsafe_allow_html=True)
-with col3:
+with col2:
     temp = format(int(global_covid_data['Cases - newly reported in last 24 hours']), ',d')
     string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Cases In Last 24 Hours :             
                 {temp}</p1>"""
     st.markdown(string, unsafe_allow_html=True)
-with col4:
-    temp = format(int(global_covid_data['Deaths - cumulative total']), ',d')
-    string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Deaths (Cumulative Total) :     
+with col3:
+    temp = format(int(global_covid_data['Cases - cumulative total']), ',d')
+    string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Cases (Cumulative Total) :             
                 {temp}</p1>"""
     st.markdown(string, unsafe_allow_html=True)
-with col5:
+with col4:
     temp = format(int(global_covid_data['Deaths - newly reported in last 24 hours']), ',d')
     string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Deaths In Last 24 Hours :             
                 {temp}</p1>"""
     st.markdown(string, unsafe_allow_html=True)
+with col5:
+    temp = format(int(global_covid_data['Deaths - cumulative total']), ',d')
+    string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Deaths (Cumulative Total) :     
+                {temp}</p1>"""
+    st.markdown(string, unsafe_allow_html=True)
+
 st.markdown("""---""")
 
 # ---- Country Wise Covid KPI's ----
 st.header(f'Country Covid Tracker : {str(selected_country)}')
 
 col1, col2, col3, col4, col5 = st.columns(5, gap='small')
+
 with col1:
-    temp = format(int(cumulative_df.loc[cumulative_df['Name'] == selected_country]['Cases - cumulative total']), ',d')
-    string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Cases (Cumulative Total) :             
-                {temp}</p1>"""
-    st.markdown(string, unsafe_allow_html=True)
-with col2:
     if selected_country == 'Global':
         temp = format(int(vaccination_df['TOTAL_VACCINATIONS'].sum()), ',d')
     else:
@@ -102,25 +99,31 @@ with col2:
     string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Total Vaccination :                   
                 {temp}</p1>"""
     st.markdown(string, unsafe_allow_html=True)
-with col3:
+with col2:
     temp = format(
         int(cumulative_df.loc[cumulative_df['Name'] == selected_country]['Cases - newly reported in last 24 hours']),
         ',d')
     string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Cases In Last 24 Hours :             
                 {temp}</p1>"""
     st.markdown(string, unsafe_allow_html=True)
-with col4:
-    temp = format(int(cumulative_df.loc[cumulative_df['Name'] == selected_country]['Deaths - cumulative total']), ',d')
-    string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Deaths (Cumulative Total) :       
+with col3:
+    temp = format(int(cumulative_df.loc[cumulative_df['Name'] == selected_country]['Cases - cumulative total']), ',d')
+    string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Cases (Cumulative Total) :             
                 {temp}</p1>"""
     st.markdown(string, unsafe_allow_html=True)
-with col5:
+with col4:
     temp = format(
         int(cumulative_df.loc[cumulative_df['Name'] == selected_country]['Deaths - newly reported in last 24 hours']),
         ',d')
     string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Deaths In Last 24 Hours :     
                 {temp}</p1>"""
     st.markdown(string, unsafe_allow_html=True)
+with col5:
+    temp = format(int(cumulative_df.loc[cumulative_df['Name'] == selected_country]['Deaths - cumulative total']), ',d')
+    string = f"""<p1 style='font-family:sans-serif; color:White; font-size:18px;'>Deaths (Cumulative Total) :       
+                {temp}</p1>"""
+    st.markdown(string, unsafe_allow_html=True)
+
 st.markdown("""---""")
 
 
@@ -131,7 +134,7 @@ df = daily_cases_df.loc[daily_cases_df['Country'] == selected_country]
 fig_daily_cases = px.line(df,
                           x='Date_reported',
                           y='New_cases',
-                          title="<b>Daily  New  Cases</b>",
+                          title="<b>New  Cases  Per  Day</b>",
                           color_discrete_sequence=["#0083B8"],
                           template="plotly_white")
 fig_daily_cases.update_layout(plot_bgcolor="rgba(0,0,0,0)", xaxis=(dict(showgrid=False)))
@@ -149,7 +152,7 @@ fig_cases_cumsum.update_layout(plot_bgcolor="rgba(0,0,0,0)", xaxis=(dict(showgri
 fig_deaths_in_24hours = px.line(df,
                                 x='Date_reported',
                                 y='New_deaths',
-                                title="<b>Deaths  In  Last  24 Hours</b>",
+                                title="<b>Deaths per Day</b>",
                                 color_discrete_sequence=["#0083B8"],
                                 template="plotly_white")
 fig_deaths_in_24hours.update_layout(plot_bgcolor="rgba(0,0,0,0)", xaxis=(dict(showgrid=False)))
