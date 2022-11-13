@@ -137,7 +137,7 @@ fig_daily_cases = px.line(df,
 fig_daily_cases.update_layout(plot_bgcolor="rgba(0,0,0,0)", xaxis=(dict(showgrid=False)))
 
 # ---- Cumulative Cases [Line Chart] ----
-fig_cases_cumsum = px.line(df,
+fig_cases_cumsum = px.area(df,
                            x='Date_reported',
                            y='Cumulative_cases',
                            title="<b>Cumulative  Cases</b>",
@@ -155,7 +155,7 @@ fig_deaths_in_24hours = px.line(df,
 fig_deaths_in_24hours.update_layout(plot_bgcolor="rgba(0,0,0,0)", xaxis=(dict(showgrid=False)))
 
 # ---- Cumulative Deaths [Line Chart] ----
-fig_deaths_cumsum = px.line(df,
+fig_deaths_cumsum = px.area(df,
                             x='Date_reported',
                             y='Cumulative_deaths',
                             title="<b>Cumulative  Deaths</b>",
