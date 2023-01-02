@@ -2,3 +2,7 @@ pandas==1.5.1
 Pillow==9.3.0
 plotly==5.11.0
 streamlit==1.14.1
+numerize~=0.12
+seaborn~=0.12.2
+matplotlib~=3.6.2
+numpy~=1.23.4
